@@ -33,7 +33,7 @@
               "entry": "src/server.ts"
             },
             "outputPath": {
-              "base": "dist/fundamental-angular",
+              "base": "dist/wbc-trip2026",
               "browser": ""
             }
           },
@@ -52,7 +52,7 @@
                 }
               ],
               "outputHashing": "all",
-              "baseHref": "https://fermi1211.github.io/angular/"
+              "baseHref": "https://fermi1211.github.io/wbc-trip2026/"
             },
             "development": {
               "optimization": false,
