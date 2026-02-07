@@ -1,0 +1,50 @@
+<header>
+  <h1>2026 WBC</h1>
+  <div class="tagline"><span>2026/02/26 - 2026/03/08</span></div>
+
+  <div id="countdown-box">
+    <p>GAME START IN</p>
+    <div class="timer">
+      <div>
+        <span>{{ timeLeft.days }}</span
+        ><small>DAYS</small>
+      </div>
+      <div>
+        <span>{{ timeLeft.hours }}</span
+        ><small>HRS</small>
+      </div>
+      <div>
+        <span>{{ timeLeft.mins }}</span
+        ><small>MINS</small>
+      </div>
+      <div>
+        <span>{{ timeLeft.secs }}</span
+        ><small>SECS</small>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="nav-container">
+  <div class="nav-wrapper">
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="tab-btn"
+      ><span>HOME</span></a
+    >
+
+    <a
+      *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]"
+      [routerLink]="['/day', i]"
+      routerLinkActive="active"
+      class="tab-btn"
+    >
+      <span>DAY {{ i }}</span>
+    </a>
+
+    <a routerLink="/gear" routerLinkActive="active" class="tab-btn"><span>GEAR</span></a>
+    <a routerLink="/notes" routerLinkActive="active" class="tab-btn"><span>NOTES</span></a>
+  </div>
+</div>

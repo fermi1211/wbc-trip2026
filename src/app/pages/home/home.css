@@ -1,0 +1,44 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding-bottom: 40px;
+}
+.schedule-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.schedule-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+.schedule-card.game-day {
+  background-color: #fff5f5;
+  border-color: var(--secondary-color);
+}
+.schedule-card.game-day h3 {
+  color: var(--secondary-color);
+}
+.sc-left h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.4rem;
+  color: var(--primary-color);
+  font-family: 'Oswald';
+}
+.sc-left span {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: bold;
+}
+.sc-arrow {
+  font-size: 1.5rem;
+  color: #ccc;
+}

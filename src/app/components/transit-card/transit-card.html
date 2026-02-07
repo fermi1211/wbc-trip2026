@@ -1,0 +1,43 @@
+<div class="wbc-transit-card" [class.open]="isOpen">
+  <div class="wbc-transit-header" (click)="toggle()">
+    <div class="wbc-th-left">
+      <div class="wbc-th-route">
+        <div class="wbc-tag" [style.background-color]="data.color">
+          <span>{{ data.type }}</span>
+        </div>
+        {{ data.route }}
+      </div>
+      <div class="wbc-th-time">{{ data.timeRange }} ({{ data.duration }})</div>
+    </div>
+    <div style="font-size: 1.2rem; transform: rotate(90deg)">❯</div>
+  </div>
+
+  <div class="wbc-transit-body">
+    <div class="wbc-timeline">
+      <div class="wbc-row">
+        <div class="wbc-time">{{ data.timeRange.split('-')[0] }}</div>
+        <div class="wbc-line-col">
+          <div class="wbc-base-dot"></div>
+          <div class="wbc-stitch-line"></div>
+        </div>
+        <div class="wbc-content">
+          <div class="wbc-station">{{ data.startStation }}</div>
+          <div class="wbc-info">{{ data.detail }}</div>
+        </div>
+      </div>
+      <div class="wbc-row">
+        <div class="wbc-time">{{ data.timeRange.split('-')[1] }}</div>
+        <div class="wbc-line-col">
+          <div class="wbc-base-dot" [style.background]="'var(--accent-color)'"></div>
+        </div>
+        <div class="wbc-content">
+          <div class="wbc-station">{{ data.endStation }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="wbc-cost" *ngIf="data.price">
+      <span>TICKET INFO</span>
+      <span style="color: var(--secondary-color)">{{ data.price }}</span>
+    </div>
+  </div>
+</div>
