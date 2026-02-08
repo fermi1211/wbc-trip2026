@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TripService, DayItinerary } from '../../services/trip.service';
-import { TransitCard} from '../../components/transit-card/transit-card';
+import { TransitCard } from '../../components/transit-card/transit-card';
 
 @Component({
   selector: 'app-day-detail',
@@ -11,18 +11,39 @@ import { TransitCard} from '../../components/transit-card/transit-card';
   styleUrl: './day-detail.css',
 })
 export class DayDetail implements OnInit {
+  themeId: string = 'sports'; // 新增 themeId 屬性，預設 sports
   dayData?: DayItinerary;
+  currentTripId: string = ''; // 1. 新增這個屬性來存 ID
 
   constructor(
     private route: ActivatedRoute,
-    private tripService: TripService
+    private tripService: TripService,
   ) {}
 
   ngOnInit() {
-    // 監聽網址變化 (e.g. 從 /day/1 變到 /day/2)
-    this.route.paramMap.subscribe(params => {
-      const id = Number(params.get('id'));
-      this.dayData = this.tripService.getDayById(id);
+    this.route.paramMap.subscribe((params) => {
+      const dayId = Number(params.get('dayId'));
+
+      this.route.parent?.paramMap.subscribe((parentParams) => {
+        const tripId = parentParams.get('tripId');
+
+        if (tripId && dayId) {
+          this.currentTripId = tripId;
+
+          // 1. 取得行程資料
+          const trip = this.tripService.getTripById(tripId);
+          if (trip) {
+            // 2. 抓取該行程的主題 ID
+            this.themeId = trip.themeId;
+
+            // 3. 確保全域變數 (字體/顏色) 也有被套用 (防止使用者直接輸入網址進入)
+            this.tripService.applyTheme(trip.themeId);
+
+            // 4. 抓取該天行程
+            this.dayData = trip.days.find((d: any) => d.id === dayId);
+          }
+        }
+      });
     });
   }
 }

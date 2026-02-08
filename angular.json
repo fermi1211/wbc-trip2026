@@ -22,20 +22,17 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/favicon.ico",
+              "src/assets"  
             ],
             "styles": [
               "src/styles.css"
             ],
             "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            },
-            "outputPath": {
-              "base": "dist/wbc-trip2026",
-              "browser": ""
-            }
+            "prerender": false,
+            "ssr": false,
+            "outputPath": "dist/wbc-trip2026"
           },
           "configurations": {
             "production": {

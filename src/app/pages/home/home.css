@@ -1,37 +1,48 @@
+.container {
+  padding-bottom: 40px;
+}
+.trip-name {
+  text-align: center;
+  color: var(--primary-color);
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-family: var(--header-font);
+  font-size: 1.2rem;
+}
+.section-title {
+  font-family: var(--header-font);
+}
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
-  padding-bottom: 40px;
 }
+
+/* =========================================
+       預設樣式 (基底)
+       ========================================= */
 .schedule-card {
   background: white;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
   padding: 20px;
   text-decoration: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.2s;
+  position: relative;
+  transition: all 0.3s ease;
   cursor: pointer;
+  overflow: hidden;
 }
-.schedule-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary-color);
+.sc-left {
+  z-index: 1;
+  position: relative;
 }
-.schedule-card.game-day {
-  background-color: #fff5f5;
-  border-color: var(--secondary-color);
-}
-.schedule-card.game-day h3 {
-  color: var(--secondary-color);
-}
+/* 使用變數字體，不再寫死 Oswald */
 .sc-left h3 {
   margin: 0 0 5px 0;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: var(--primary-color);
-  font-family: 'Oswald';
+  font-family: var(--header-font, 'sans-serif');
 }
 .sc-left span {
   font-size: 0.9rem;
@@ -41,4 +52,419 @@
 .sc-arrow {
   font-size: 1.5rem;
   color: #ccc;
+  transition: transform 0.2s;
+}
+
+.schedule-card:hover {
+  transform: translateY(-5px);
+}
+.schedule-card:hover .sc-arrow {
+  transform: translateX(5px);
+  color: var(--primary-color);
+}
+
+/* =========================================
+       主題 1: Sports (WBC 熱血運動風)
+       特色：粗邊框、斜角裝飾、強烈對比
+       ========================================= */
+.sports .schedule-card {
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+}
+.sports .schedule-card:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+/* 右上角斜切裝飾 */
+.sports .schedule-card::after {
+  content: '';
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 50px;
+  height: 50px;
+  background: #f0f0f0;
+  transform: rotate(45deg);
+  z-index: 0;
+  transition: background 0.2s;
+}
+.sports .schedule-card:hover::after {
+  background: var(--primary-color);
+}
+
+/* 比賽日特別樣式 */
+.sports .schedule-card.game-day {
+  background-color: #fff5f5;
+  border-color: var(--secondary-color);
+}
+.sports .schedule-card.game-day h3 {
+  color: var(--secondary-color);
+}
+.sports .schedule-card.game-day::after {
+  background: var(--secondary-color);
+}
+
+/* Gear & Notes 特色色 */
+.sports .gear {
+  border-color: #333;
+}
+.sports .gear h3 {
+  color: #333 !important;
+}
+.sports .notes {
+  border-color: #e74c3c;
+}
+.sports .notes h3 {
+  color: #e74c3c !important;
+}
+
+/* =========================================
+       主題 2: Kyoto (京都日式禪風)
+       特色：左側色條、優雅陰影、無斜角、襯線字
+       ========================================= */
+.kyoto .schedule-card {
+  border: none;
+  border-left: 6px solid var(--primary-color); /* 左側重點色條 */
+  border-radius: 4px; /* 稍微圓角 */
+  background: rgba(255, 255, 255, 0.9); /* 微微透明 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* 輕柔陰影 */
+}
+.kyoto .schedule-card:hover {
+  background: white;
+  box-shadow: 0 5px 15px rgba(93, 64, 55, 0.2); /* 懸浮時加深陰影 */
+  transform: translateY(-3px);
+}
+/* 隱藏斜角裝飾與箭頭 */
+.kyoto .schedule-card::after {
+  display: none;
+}
+.kyoto .sc-arrow {
+  display: none;
+}
+
+/* 加入背景浮水印效果 (模擬御守或家徽) */
+.kyoto .schedule-card::before {
+  content: '●'; /* 簡單圓點或可換成圖案 */
+  position: absolute;
+  right: -10px;
+  bottom: -20px;
+  font-size: 8rem;
+  color: var(--primary-color);
+  opacity: 0.05;
+  font-family: sans-serif;
+}
+
+/* 重要日子的樣式 (例如穿和服日/祭典) */
+.kyoto .schedule-card.game-day {
+  border-left-color: var(--secondary-color);
+  background: linear-gradient(to right, #fff5f5, #fff);
+}
+.kyoto .schedule-card.game-day h3 {
+  color: var(--secondary-color);
+}
+
+/* Gear & Notes 微調 */
+.kyoto .gear {
+  border-left-color: #555;
+}
+.kyoto .gear h3 {
+  color: #555 !important;
+}
+.kyoto .notes {
+  border-left-color: #d35400;
+}
+.kyoto .notes h3 {
+  color: #d35400 !important;
+}
+
+/* =========================================
+       主題 3: Orienteering (定向越野)
+       特色：像地圖圖示、切角設計、方位磁針元素
+       ========================================= */
+.orienteering .schedule-card {
+  border: 2px solid var(--primary-color);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%); /* 右下角切角，像地圖折角 */
+  background: rgba(255, 255, 255, 0.95);
+}
+.orienteering .schedule-card::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid var(--primary-color); /* 三角形指標 */
+}
+.orienteering .schedule-card:hover {
+  background: var(--bg-color);
+  transform: translateX(5px); /* 像看地圖時移動視角 */
+}
+
+/* =========================================
+       主題 4: Fighters (北海道火腿鬥士)
+       特色：極簡、速度線條、金屬光澤、不對稱
+       ========================================= */
+.fighters .schedule-card {
+  border: none;
+  background: white;
+  border-top: 4px solid var(--secondary-color); /* 黑色帽簷 */
+  border-bottom: 4px solid var(--primary-color); /* 藍色底座 */
+  transform: skewX(-10deg); /* 整體傾斜，展現速度感 */
+  margin-left: 10px;
+  margin-right: 10px; /* 修正傾斜造成的空間 */
+}
+.fighters .sc-left,
+.fighters .sc-arrow {
+  transform: skewX(10deg); /* 內容轉正，不讓文字歪掉 */
+}
+.fighters .schedule-card:hover {
+  box-shadow: 10px 10px 0 var(--accent-color); /* 金色影子 */
+  transform: skewX(-10deg) translateY(-5px);
+}
+.fighters .game-day {
+  background: linear-gradient(135deg, #fff 80%, var(--primary-color) 80%);
+}
+
+/* =========================================
+       主題 5: Tennis (大滿貫網球)
+       特色：乾淨白底、綠色邊線、圓形網球元素
+       ========================================= */
+.tennis .schedule-card {
+  border: 1px solid #ccc;
+  border-radius: 20px; /* 圓潤造型 */
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding-left: 30px; /* 留位子給網球 */
+}
+.tennis .schedule-card::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background: var(--accent-color); /* 網球黃綠色圓點 */
+  border-radius: 50%;
+  box-shadow: 0 0 5px var(--accent-color);
+}
+.tennis .schedule-card:hover {
+  border-color: var(--primary-color); /* 變成溫布頓紫 */
+  background: linear-gradient(to right, white, #f1f8e9);
+}
+.tennis .game-day {
+  border-left: 5px solid var(--secondary-color); /* 草地綠標示 */
+}
+
+/* =========================================
+       主題 6: Melbourne (澳洲墨爾本)
+       特色：拍立得/便利貼風格、手寫字、隨性旋轉
+       ========================================= */
+.melbourne .schedule-card {
+  border: 1px solid #ddd;
+  background: #fff;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  /* 讓卡片看起來像隨意貼在牆上 */
+  transform: rotate(-1deg);
+  border-bottom: 10px solid white; /* 像拍立得底部 */
+}
+.melbourne .schedule-card:nth-child(even) {
+  transform: rotate(1deg); /* 偶數卡片往反方向歪 */
+}
+.melbourne .schedule-card:hover {
+  transform: scale(1.05) rotate(0deg); /* 懸浮時變正、放大 */
+  z-index: 10;
+  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+}
+.melbourne .sc-arrow {
+  color: var(--accent-color); /* 塗鴉紅 */
+}
+
+/* =========================================
+       主題 7: Bangkok CNY (曼谷農曆新年)
+       特色：深色模式、霓虹光暈、金邊、慶典感
+       ========================================= */
+.bkk-cny .trip-name {
+  color: var(--secondary-color) !important;
+  text-shadow: 0 0 10px red;
+}
+.bkk-cny .schedule-card {
+  background: #2a0a0a; /* 深紅黑底 */
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  box-shadow: 0 0 5px var(--primary-color); /* 紅色霓虹光暈 */
+}
+.bkk-cny .schedule-card h3 {
+  color: var(--secondary-color); /* 金色標題 */
+}
+.bkk-cny .schedule-card span {
+  color: #ffcccc;
+} /* 淺粉字 */
+
+.bkk-cny .schedule-card:hover {
+  background: #4a0000;
+  box-shadow:
+    0 0 15px var(--primary-color),
+    0 0 5px var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+.bkk-cny .sc-arrow {
+  color: var(--secondary-color);
+  text-shadow: 0 0 5px yellow;
+}
+
+/* =========================================
+       主題 8: O-ringen (瑞典定向)
+       特色：高對比藍黃配色、簡潔方塊、北歐風
+       ========================================= */
+.oringen .schedule-card {
+  border: 4px solid var(--secondary-color); /* 黃色粗框 */
+  background: var(--primary-color); /* 藍底 */
+  color: white;
+  border-radius: 0;
+}
+.oringen .schedule-card h3 {
+  color: white !important;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.oringen .schedule-card span {
+  color: var(--secondary-color);
+  font-weight: normal;
+}
+.oringen .sc-arrow {
+  color: var(--secondary-color);
+}
+
+.oringen .schedule-card:hover {
+  background: var(--secondary-color);
+  border-color: var(--primary-color);
+}
+.oringen .schedule-card:hover h3 {
+  color: var(--primary-color) !important;
+}
+.oringen .schedule-card:hover span {
+  color: #333;
+}
+
+/* =========================================
+       主題 9: Fukuoka (福岡)
+       特色：屋台暖簾風格、圓潤感
+       ========================================= */
+.fukuoka .schedule-card {
+  border: none;
+  background: white;
+  border-top: 8px solid var(--primary-color); /* 紅色像暖簾 */
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.fukuoka .schedule-card h3 {
+  color: black !important;
+}
+.fukuoka .schedule-card::before {
+  /*content: '博多'; /* 裝飾字 */
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 3rem;
+  color: #f0f0f0;
+  font-weight: bold;
+  font-family: sans-serif;
+  z-index: 0;
+}
+.fukuoka .schedule-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(211, 47, 47, 0.2);
+}
+.fukuoka .sc-arrow {
+  color: var(--primary-color);
+}
+
+/* =========================================
+       主題 10: WMG (世壯運)
+       特色：現代漸層、活力流線
+       ========================================= */
+.wmg .schedule-card {
+  background: white;
+  border: none;
+  border-radius: 12px;
+  /* 漸層邊框效果 */
+  position: relative;
+  z-index: 1;
+}
+.wmg .schedule-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: 14px;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+}
+.wmg .schedule-card:hover {
+  transform: scale(1.02);
+}
+.wmg .game-day {
+  background: #fdfdfd;
+}
+.wmg .game-day h3 {
+  background: -webkit-linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================================
+       主題 11: Aus Open (澳網)
+       特色：球場藍底、陽光黃字
+       ========================================= */
+.aus-open .schedule-card {
+  background: var(--primary-color); /* AO Blue */
+  border: 1px solid white;
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 var(--secondary-color); /* 黃色實心影 */
+}
+.aus-open .schedule-card h3 {
+  color: white !important;
+}
+.aus-open .schedule-card span {
+  color: #e1f5fe;
+}
+.aus-open .sc-arrow {
+  color: var(--secondary-color);
+}
+
+.aus-open .schedule-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--secondary-color);
+}
+
+/* =========================================
+       主題 12: Baseball (經典棒球)
+       特色：棒球縫線 (dashed border)、草地感
+       ========================================= */
+.baseball .schedule-card {
+  background: white;
+  border: 2px dashed var(--primary-color); /* 紅色虛線模仿縫線 */
+  border-radius: 15px;
+}
+.baseball .schedule-card:hover {
+  background: #fff8f8;
+  border-style: solid; /* 懸浮變成實線 */
+}
+.baseball .schedule-card h3 {
+  color: var(--secondary-color) !important; /* 草地綠字 */
+}
+
+.baseball .game-day {
+  background:
+    url('https://www.transparenttextures.com/patterns/green-dust-and-scratches.png'),
+    var(--secondary-color);
+  border: 2px solid white;
+}
+.baseball .game-day h3 {
+  color: white !important;
+}
+.baseball .game-day span {
+  color: #ddd;
 }

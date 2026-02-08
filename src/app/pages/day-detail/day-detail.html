@@ -1,4 +1,4 @@
-<div class="container" *ngIf="dayData">
+<div class="container" *ngIf="dayData; else noData" [ngClass]="themeId">
   <h2 class="section-title">DAY {{ dayData.id }}</h2>
 
   <div
@@ -43,3 +43,10 @@
     </div>
   </div>
 </div>
+
+<ng-template #noData>
+  <div class="container" style="text-align: center; padding: 50px">
+    <h2>Loading...</h2>
+    <p>正在讀取行程資料...</p>
+  </div>
+</ng-template>

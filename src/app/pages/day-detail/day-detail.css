@@ -1,0 +1,447 @@
+/* =========================================
+       0. 基底樣式 (Base Styles)
+       ========================================= */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 80vh;
+}
+
+/* Header */
+.day-header {
+  margin-bottom: 30px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+.header-content {
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
+}
+.section-title {
+  font-size: 2.5rem;
+  margin: 0 0 20px 0;
+  color: var(--primary-color);
+  font-family: var(--header-font);
+}
+.date-badge {
+  background: var(--secondary-color);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-family: var(--header-font);
+}
+.day-title {
+  font-size: 1.2rem;
+  color: #666;
+  margin: 5px 0 0 0;
+  font-weight: bold;
+}
+
+/* Alert */
+.game-alert {
+  background: #d32f2f;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Timeline Structure */
+.timeline {
+  position: relative;
+  border-left: 2px solid #e0e0e0;
+  margin-left: 20px;
+  padding-left: 25px;
+  padding-bottom: 20px;
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+/* Marker (預設圓點) */
+.marker {
+  position: absolute;
+  left: -32px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px var(--primary-color);
+  z-index: 2;
+  transition: all 0.3s;
+}
+
+/* Content */
+.time {
+  font-family: var(--header-font);
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+}
+.content {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+}
+.content h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+.location {
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+/* Tags */
+.type-tag {
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: white;
+  background: #999;
+  display: inline-block;
+  font-weight: bold;
+}
+.type-tag.flight {
+  background: #3498db;
+}
+.type-tag.game {
+  background: #e74c3c;
+}
+.type-tag.hotel {
+  background: #9b59b6;
+}
+.type-tag.food {
+  background: #f1c40f;
+  color: #333;
+}
+.type-tag.sightseeing {
+  background: #2ecc71;
+}
+
+/* Nav Button */
+.nav-buttons {
+  margin-top: 40px;
+  text-align: center;
+}
+.back-btn {
+  display: inline-block;
+  padding: 10px 30px;
+  background: white;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+.back-btn:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* =========================================
+       1. Sports (WBC) - 現代、速度感
+       ========================================= */
+.sports .marker {
+  border-radius: 2px;
+  transform: rotate(45deg);
+} /* 菱形節點 */
+.sports .content {
+  border-left: 4px solid var(--secondary-color);
+}
+.sports .timeline-item:hover .marker {
+  background: var(--secondary-color);
+  box-shadow: 0 0 0 2px var(--secondary-color);
+}
+
+/* =========================================
+       2. Kyoto (京都) - 雅緻、垂直線條
+       ========================================= */
+.kyoto .timeline {
+  border-left-color: var(--primary-color);
+  border-left-width: 1px;
+  border-style: solid;
+}
+.kyoto .marker {
+  background: white;
+  border: 2px solid var(--secondary-color);
+  box-shadow: none;
+  width: 8px;
+  height: 8px;
+  left: -30px;
+  top: 8px;
+}
+.kyoto .content {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: none;
+  border: 1px solid #ddd;
+  font-family: 'Noto Serif TC', serif;
+}
+.kyoto .day-header {
+  border-bottom: 1px solid var(--secondary-color);
+}
+
+/* =========================================
+       3. Orienteering (定向越野) - 地圖風格
+       ========================================= */
+.orienteering .timeline {
+  border-left: 2px dashed var(--primary-color);
+} /* 虛線路徑 */
+.orienteering .marker {
+  border-radius: 0;
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(135deg, #ff6600 50%, white 50%); /* 橘白標誌 */
+  border: 1px solid #333;
+  box-shadow: none;
+}
+.orienteering .content {
+  border: 2px solid #333;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+.orienteering .time {
+  font-family: 'Roboto Condensed';
+  letter-spacing: 1px;
+}
+
+/* =========================================
+       4. Fighters (北海道火腿) - 銳利、斜角
+       ========================================= */
+.fighters .content {
+  transform: skewX(-10deg);
+  border-radius: 0;
+  border-right: 5px solid var(--accent-color); /* 金色邊條 */
+  background: linear-gradient(to right, #fff, #f0f4f8);
+}
+.fighters .content h3,
+.fighters .content span {
+  transform: skewX(10deg);
+} /* 文字轉正 */
+.fighters .marker {
+  border-radius: 0;
+  background: var(--secondary-color);
+  width: 10px;
+  height: 20px;
+  top: 0;
+} /* 長條形節點 */
+.fighters .time {
+  font-style: italic;
+  font-size: 1.3rem;
+}
+
+/* =========================================
+       5. Tennis (大滿貫) - 草地、球體
+       ========================================= */
+.tennis .timeline {
+  border-left: 4px solid white;
+} /* 模仿網球場白線 */
+.tennis .marker {
+  background: var(--accent-color);
+  border: none;
+  box-shadow: 0 0 5px var(--accent-color);
+  width: 16px;
+  height: 16px;
+  left: -35px;
+}
+.tennis .content {
+  border-radius: 20px;
+  border: 1px solid #e0e0e0;
+}
+.tennis .type-tag {
+  border-radius: 10px;
+}
+
+/* =========================================
+       6. Melbourne (墨爾本) - 手寫、塗鴉
+       ========================================= */
+.melbourne .day-header {
+  border-bottom: 3px solid var(--accent-color);
+  transform: rotate(-1deg);
+}
+.melbourne .content {
+  font-family: 'Lato', sans-serif;
+  box-shadow: 3px 3px 0 var(--primary-color);
+  border: 2px solid #333;
+  transform: rotate(1deg);
+}
+.melbourne .marker {
+  background: #333;
+  box-shadow: none;
+  border: none;
+}
+.melbourne .time {
+  font-family: 'Permanent Marker';
+  font-size: 1.3rem;
+  color: var(--accent-color);
+}
+
+/* =========================================
+       7. Bangkok CNY (曼谷新年) - 霓虹、深色
+       ========================================= */
+.bkk-cny .content {
+  background: #220000;
+  border: 1px solid var(--secondary-color);
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+.bkk-cny .content h3 {
+  color: var(--secondary-color);
+}
+.bkk-cny .time {
+  color: #ff00de;
+  text-shadow: 0 0 5px #ff00de;
+} /* 霓虹粉 */
+.bkk-cny .marker {
+  background: var(--secondary-color);
+  box-shadow: 0 0 10px var(--secondary-color);
+  border-color: #ff0000;
+}
+.bkk-cny .day-header {
+  border-bottom: 1px solid var(--secondary-color);
+}
+
+/* =========================================
+       8. O-ringen (瑞典定向)
+       ========================================= */
+.oringen .timeline {
+  border-left: 4px solid var(--secondary-color);
+}
+.oringen .marker {
+  background: var(--primary-color);
+  border: 2px solid var(--secondary-color);
+  width: 16px;
+  height: 16px;
+  border-radius: 0;
+  transform: rotate(45deg); /* 菱形檢查點 */
+}
+.oringen .content {
+  border: 2px solid var(--primary-color);
+  border-radius: 0;
+  box-shadow: none;
+}
+.oringen .time {
+  color: var(--primary-color);
+  background: var(--secondary-color);
+  display: inline-block;
+  padding: 2px 5px;
+}
+
+/* =========================================
+       9. Fukuoka (福岡)
+       ========================================= */
+.fukuoka .marker {
+  background: var(--primary-color);
+  border-radius: 50%;
+  border: 3px solid white;
+  width: 18px;
+  height: 18px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.fukuoka .content {
+  border-top: 3px solid var(--primary-color);
+  border-radius: 0 0 8px 8px;
+  background: #fff;
+}
+.fukuoka .day-header {
+  border-bottom: 2px solid var(--accent-color);
+}
+
+/* =========================================
+       10. WMG (世壯運)
+       ========================================= */
+.wmg .marker {
+  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+  border: none;
+  width: 14px;
+  height: 14px;
+}
+.wmg .content {
+  border-left: 3px solid var(--primary-color);
+  border-radius: 12px;
+}
+.wmg .date-badge {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+}
+
+/* =========================================
+       11. Aus Open (澳網)
+       ========================================= */
+.aus-open .timeline {
+  border-left: 2px solid white;
+} /* 模仿球場白線 */
+.aus-open .marker {
+  background: var(--secondary-color); /* 黃色球 */
+  width: 14px;
+  height: 14px;
+  border: none;
+}
+.aus-open .content {
+  background: var(--primary-color);
+  color: white;
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 var(--secondary-color);
+}
+.aus-open .content h3 {
+  color: white;
+}
+.aus-open .location {
+  color: #e3f2fd;
+}
+.aus-open .time {
+  color: var(--primary-color);
+  background: white;
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+/* =========================================
+       12. Baseball (經典棒球)
+       ========================================= */
+.baseball .marker {
+  background: white;
+  border: 2px solid var(--primary-color);
+  width: 16px;
+  height: 16px;
+}
+/* 模仿棒球縫線 */
+.baseball .marker::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0px;
+  width: 8px;
+  height: 12px;
+  border-left: 1px dashed var(--primary-color);
+  border-right: 1px dashed var(--primary-color);
+}
+.baseball .content {
+  border: 1px solid #ddd;
+  border-bottom: 4px solid var(--secondary-color); /* 草地綠底座 */
+}

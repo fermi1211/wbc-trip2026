@@ -1,5 +1,11 @@
-<app-header></app-header>
-<main>
+<app-side-menu #menu></app-side-menu>
+
+<app-header *ngIf="showMainHeader" (toggleMenu)="menu.toggle()"></app-header>
+
+<button *ngIf="!showMainHeader" class="floating-menu-btn" (click)="menu.toggle()">☰</button>
+
+<main class="main-content">
   <router-outlet></router-outlet>
 </main>
+
 <app-footer></app-footer>

@@ -1,6 +1,16 @@
-import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef } from '@angular/core'; // 1. 加入 ChangeDetectorRef
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  inject,
+  ChangeDetectorRef,
+  Output,
+  EventEmitter,
+  effect,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { TripService } from '../../services/trip.service';
 
 @Component({
   selector: 'app-header',
@@ -9,15 +19,28 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './header.css',
 })
 export class Header implements OnInit, OnDestroy {
-  // 2. 注入變更偵測器
+  @Output() toggleMenu = new EventEmitter<void>();
+
+  public tripService = inject(TripService);
   private cdr = inject(ChangeDetectorRef);
-  
-  targetDate = new Date("2026-03-05T00:00:00").getTime();
+
+  targetDate: number = 0;
   timeLeft = { days: '00', hours: '00', mins: '00', secs: '00' };
   private intervalId: any;
+  backgroundStyle: string = '';
+
+  constructor() {
+    effect(() => {
+      const trip = this.tripService.currentTrip();
+      if (trip) {
+        this.backgroundStyle = `linear-gradient(to bottom right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('${trip.headerBg}')`;
+        this.targetDate = new Date(trip.startDate).getTime();
+        this.updateTimer();
+      }
+    });
+  }
 
   ngOnInit() {
-    this.updateTimer();
     this.intervalId = setInterval(() => {
       this.updateTimer();
     }, 1000);
@@ -30,13 +53,14 @@ export class Header implements OnInit, OnDestroy {
   }
 
   updateTimer() {
+    if (!this.targetDate) return;
+
     const now = new Date().getTime();
     const distance = this.targetDate - now;
 
     if (distance < 0) {
       this.timeLeft = { days: '00', hours: '00', mins: '00', secs: '00' };
-      if (this.intervalId) clearInterval(this.intervalId);
-      this.cdr.markForCheck(); // 時間到也要通知一次
+      this.cdr.markForCheck();
       return;
     }
 
@@ -49,11 +73,8 @@ export class Header implements OnInit, OnDestroy {
       days: days.toString().padStart(2, '0'),
       hours: hours.toString().padStart(2, '0'),
       mins: minutes.toString().padStart(2, '0'),
-      secs: seconds.toString().padStart(2, '0')
+      secs: seconds.toString().padStart(2, '0'),
     };
-
-    // ★★★ 3. 關鍵修正：手動通知 Angular 更新畫面 ★★★
     this.cdr.markForCheck();
-    // 如果 markForCheck 沒用，請改試 this.cdr.detectChanges();
   }
 }

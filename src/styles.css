@@ -51,9 +51,6 @@ h3,
 /* --- 1. Hero Section (球場氛圍) --- */
 header {
   /* 棒球場圖片 */
-  background-image:
-    linear-gradient(to bottom right, rgba(0, 120, 190, 0.289), rgba(0, 196, 180, 0.026)),
-    url('./app/images/coverPage.jpeg');
   background-size: cover;
   background-position: center;
   min-height: 55vh;

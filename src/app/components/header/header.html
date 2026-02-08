@@ -1,9 +1,14 @@
-<header>
-  <h1>2026 WBC</h1>
-  <div class="tagline"><span>2026/02/26 - 2026/03/08</span></div>
+<header [style.backgroundImage]="backgroundStyle">
+  <button class="menu-toggle" (click)="toggleMenu.emit()">☰</button>
+
+  <h1>{{ tripService.currentTrip()?.headerTitle }}</h1>
+  <div class="tagline">
+    <span>{{ tripService.currentTrip()?.headerSubtitle }}</span>
+  </div>
 
   <div id="countdown-box">
-    <p>GAME START IN</p>
+    <p>{{ tripService.currentTrip()?.countdownLabel }}</p>
+
     <div class="timer">
       <div>
         <span>{{ timeLeft.days }}</span
@@ -28,23 +33,37 @@
 <div class="nav-container">
   <div class="nav-wrapper">
     <a
-      routerLink="/"
+      [routerLink]="['/trip', tripService.currentTripId()]"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
       class="tab-btn"
-      ><span>HOME</span></a
     >
+      <span>HOME</span>
+    </a>
 
     <a
-      *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]"
-      [routerLink]="['/day', i]"
+      *ngFor="let day of tripService.currentTrip()?.days"
+      [routerLink]="['/trip', tripService.currentTripId(), 'day', day.id]"
       routerLinkActive="active"
       class="tab-btn"
     >
-      <span>DAY {{ i }}</span>
+      <span>DAY {{ day.id }}</span>
     </a>
 
-    <a routerLink="/gear" routerLinkActive="active" class="tab-btn"><span>GEAR</span></a>
-    <a routerLink="/notes" routerLinkActive="active" class="tab-btn"><span>NOTES</span></a>
+    <a
+      [routerLink]="['/trip', tripService.currentTripId(), 'gear']"
+      routerLinkActive="active"
+      class="tab-btn"
+    >
+      <span>GEAR</span>
+    </a>
+
+    <a
+      [routerLink]="['/trip', tripService.currentTripId(), 'notes']"
+      routerLinkActive="active"
+      class="tab-btn"
+    >
+      <span>NOTES</span>
+    </a>
   </div>
 </div>

@@ -1,11 +1,11 @@
-<div class="container">
+<div class="container" [ngClass]="tripService.currentTrip()?.themeId">
   <h2 class="section-title">FULL SCHEDULE</h2>
-  <p style="text-align: center; color: #666; margin-bottom: 20px">點擊卡片查看每日戰況</p>
+  <p class="trip-name">{{ tripName }}</p>
 
   <div class="dashboard-grid">
     <a
       *ngFor="let day of days"
-      [routerLink]="['/day', day.id]"
+      [routerLink]="['day', day.id]"
       class="schedule-card"
       [class.game-day]="day.isGameDay"
     >
@@ -16,18 +16,18 @@
       <div class="sc-arrow">❯</div>
     </a>
 
-    <a routerLink="/gear" class="schedule-card" style="border-color: #333">
+    <a [routerLink]="['gear']" class="schedule-card info-card gear">
       <div class="sc-left">
-        <h3 style="color: #333">GEAR</h3>
-        <span>裝備檢查清單</span>
+        <h3 class="info-title">GEAR</h3>
+        <span>CHECKLIST</span>
       </div>
       <div class="sc-arrow">❯</div>
     </a>
 
-    <a routerLink="/notes" class="schedule-card" style="border-color: #e74c3c">
+    <a [routerLink]="['notes']" class="schedule-card info-card notes">
       <div class="sc-left">
-        <h3 style="color: #e74c3c">NOTES</h3>
-        <span>注意事項 / 緊急聯絡</span>
+        <h3 class="info-title">NOTES</h3>
+        <span>IMPORTANT</span>
       </div>
       <div class="sc-arrow">❯</div>
     </a>
